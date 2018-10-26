@@ -8,6 +8,7 @@ $(function() {
      $.ajax({ url: '/api/products', method: 'GET'}).then(function(productList) {
 
         renderProducts('#productList', productList);
+       
 
      })   
 
@@ -16,6 +17,7 @@ $(function() {
     //function to render/print the data from the database to our html page
     const renderProducts = function(outputElement, dataList)
     {
+        let rowsToAdd = [];
         for(let i = 0; i < dataList.length; i++) {
 
             //getting a reference to the productList and populating it with tables
@@ -35,7 +37,21 @@ $(function() {
 
         output.append(listItem);
 
+        rowsToAdd.push(createProductRow(dataList[i]));
         }
+
+        $('#product').append(rowsToAdd);
+        $('#product').val(id);
+
+
+     
+    }
+
+    const createProductRow = function(product) {
+        let listOption = $('<option>');
+        listOption.attr('value', product.id);
+        listOption.text(product.product_name);
+        return listOption;
     }
 
 
