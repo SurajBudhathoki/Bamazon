@@ -1,4 +1,4 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
     const Product = sequelize.define('Product', {
         product_name: {
             type: DataTypes.STRING,
@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
         stock_quantity: {
             type: DataTypes.INTEGER
         }
-    
+
     });
     return Product;
 
