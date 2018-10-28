@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,44 +11,51 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
-    
+
     <div class="container">
         <div class="jumbotron text-center">
-            <h1>  Welcome to Bamazon <i class="fa fa-shopping-cart" aria-hidden="true"></i></h1>
+            <h1> Welcome to Bamazon <i class="fa fa-shopping-cart" aria-hidden="true"></i></h1>
             <hr>
             <div class="container">
-                <h3> Choose a Product: </h3>
+                <h3> Select a Product: </h3>
             </div>
             <br>
             <div class="form-group">
-                <label for="category"> Select Product:</label>
-                    <select class="custom-select" id="product">
-                         
-                        </select> <br>
+
+                <select class="custom-select" id="product">
+                    <option selected>Choose...</option>
+                </select> <br> <br>
+                <button class="btn btn-primary" id="submit"> Choose </button>
             </div>
-          
+
 
             <div class="card">
                 <div class="card-header">
-                    <h3> Available Products: </h3>
+                    <h3> Product Information: </h3>
                 </div>
                 <div class="card-body">
-                    <ul id = "productList" class="list-group"></ul>
+                    <ul id="productInfo" class="list-group"></ul>
+
+                </div>
+
+                <div class="card-body" id="stuff">
+
                 </div>
 
             </div>
 
-           
+
         </div>
 
-        
+
     </div>
-    
+
 
     <footer class="footer">
         <div class="container">
-            <a href = "/api/products"> API Products Link</a>
+            <a href="/api/products"> API Products Link</a>
         </div>
     </footer>
 
@@ -57,4 +65,5 @@
     <script src="/js/app.js"></script>
 
 </body>
+
 </html>
