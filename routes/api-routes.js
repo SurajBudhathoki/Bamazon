@@ -41,6 +41,7 @@ module.exports = function (app) {
             { where: { id: req.params.id } }
         ).then(function (response) {
             res.json({ success: true });
+            console.log(response);
         }).catch(function (error) {
             res.json({ error: error });
         });

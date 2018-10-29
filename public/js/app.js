@@ -48,13 +48,13 @@ const render = function (outputElement, data) {
     listItems.append(
 
 
-        $('<h2>').text( data.product_name),
+        $('<h2>').text(data.product_name),
         $('<h3>').text('Department: ' + data.department_name),
         $('<h3>').text('Price: $' + data.price),
 
     );
 
-        
+
 
     const inputDiv = $('<div>');
 
@@ -71,7 +71,7 @@ const render = function (outputElement, data) {
         $('<button>').text('Purchase').addClass('btn btn-success purchase').attr('data-id', data.id)
     );
 
-    divBody.append( listItems, inputDiv, buttonDiv);
+    divBody.append(listItems, inputDiv, buttonDiv);
 
     output.append(home, divHeader, divBody);
 
@@ -82,7 +82,7 @@ const render = function (outputElement, data) {
 
         input = $('#quantity').val();
 
-        if(!input){
+        if (!input) {
             $('#totalInfo').text('Please enter quantity!');
             $("#totalModal").modal("toggle");
         }
@@ -93,9 +93,9 @@ const render = function (outputElement, data) {
 
             $('#totalInfo').text(`Your total is $${totalPrice}`);
             $("#totalModal").modal("toggle");
-    
+
         }
-    
+
     }
 
 
@@ -104,7 +104,7 @@ const render = function (outputElement, data) {
 
         input = $('#quantity').val();
 
-        if(!input){
+        if (!input) {
             $('#purchaseInfo').text('Please enter quantity!');
             $("#purchaseModal").modal("toggle");
         }
@@ -112,37 +112,70 @@ const render = function (outputElement, data) {
         else {
 
 
-        if (input <= data.stock_quantity) {
+            if (input <= data.stock_quantity) {
 
-            $('#purchaseInfo').text(`Thank you for purchasing the ${data.product_name}`);
-            $("#purchaseModal").modal("toggle");
-        }
+                $('#purchaseInfo').text(`Thank you for purchasing the ${data.product_name}`);
+                $("#purchaseModal").modal("toggle");
 
-        else {
-            $('#purchaseInfo').text(`Sorry! We currently only have ${data.stock_quantity} ${data.product_name} available.`);
-            //.css({ "color": "red", "font-size": "100%" });
-            $("#purchaseModal").modal("toggle");
-        }
+                //subtracting users input from the stock_quantity currently in the database 
+                updatedQuantity = data.stock_quantity - input;
+
+
+                //getting id to make the ajax call
+                const id = $(this).attr('data-id');
+
+                //assigning the updated stock_quantity  and creating an object to send it back to the database 
+                const newProduct = {
+                    product_name : data.product_name,
+                    department_name : data.department_name,
+                    price : data.price,
+                    stock_quantity : updatedQuantity
+                }
+
+                console.log(newProduct);
+
+                //ajax call to update the stock quantity in the database
+                    $.ajax({ url: `/api/products/${id}`, method: 'PUT', data: newProduct }).then(function (data) {
+                              
+                        if (data.success) {
+                           
+                            console.log(`amount left: ${newProduct.stock_quantity}`);
+                        }
+                
+                        else {
+                            console.log('The was a problem!');
+                        }
+                
+                    })
+                
+                
+            }
+
+            else {
+                $('#purchaseInfo').text(`Sorry! We currently only have ${data.stock_quantity} ${data.product_name} available.`);
+                $("#purchaseModal").modal("toggle");
+            }
 
         }
 
     }
 
+    //function to display the previous dropdown 
     const renderHome = function () {
         $('.container1').show();
         $('#product').show();
         $('#submit').show();
         $('.home').hide();
-    
+
     }
 
-     $('#purchaseInfo').empty();
+    $('#purchaseInfo').empty();
     //clicking the total and purchase item buttons
     $('.home').on('click', renderHome);
     $('.total').on('click', total);
     $('.purchase').on('click', purchaseItem);
 
-  
+
 }
 
 $('#productInfo').empty();
