@@ -30,28 +30,36 @@ const findOneProduct = function () {
 //function to render information about the products from the database
 const render = function (outputElement, data) {
 
+    $('.container1').hide();
+    $('#product').hide();
+    $('#submit').hide();
 
     const output = $(outputElement);
 
+    const home = $('<button>').text('Back to Product Selection').addClass('btn btn-success home');
+
+    const divHeader = $('<div>').addClass('card-header');
+    const divBody = $('<div>').addClass('card-body');
 
     //displaying it in the HTML sections
-    const listItem = $('<li class=\'list-group-item mt-4\'>');
+    divHeader.append(`<h3>Product Information</h3>`);
+    const listItems = $('<p><br>');
 
-    listItem.append(
+    listItems.append(
 
 
-        $('<h2>').text('Name: ' + data.product_name),
-        $('<h2>').text('Department Name: ' + data.department_name),
-        $('<h2>').text('Price: $' + data.price),
-        $('<h2>').text('Available Quantity: ' + data.stock_quantity),
+        $('<h2>').text( data.product_name),
+        $('<h3>').text('Department: ' + data.department_name),
+        $('<h3>').text('Price: $' + data.price),
 
     );
 
+        
 
     const inputDiv = $('<div>');
 
     inputDiv.append(
-        $('<h4>').text('How many: '),
+        $('<h4>').text('Quantity: '),
         $('<input>').attr('placeholder', 'Enter amount').attr('id', 'quantity')
     );
 
@@ -59,11 +67,14 @@ const render = function (outputElement, data) {
     const buttonDiv = $('<br><div>');
 
     buttonDiv.append(
-        $('<button>').text('Calculate total').addClass('btn btn-warning total').attr('data-id', data.id), $('<br>'),
-        $('<button>').text('Purchase').addClass('btn btn-primary purchase').attr('data-id', data.id)
+        $('<button>').text('Calculate total').addClass('btn btn-success total').attr('data-id', data.id),
+        $('<button>').text('Purchase').addClass('btn btn-success purchase').attr('data-id', data.id)
     );
 
-    output.append(listItem, inputDiv, buttonDiv);
+    divBody.append( listItems, inputDiv, buttonDiv);
+
+    output.append(home, divHeader, divBody);
+
 
 
     //function to calculate total price for the user
@@ -71,11 +82,20 @@ const render = function (outputElement, data) {
 
         input = $('#quantity').val();
 
-        let totalPrice = input * data.price;
+        if(!input){
+            $('#totalInfo').text('Please enter quantity!');
+            $("#totalModal").modal("toggle");
+        }
 
-        $('#stuff').html(`Your total is ${totalPrice}`);
-        console.log(`Your total is $${totalPrice}`);
+        else {
 
+            let totalPrice = input * data.price;
+
+            $('#totalInfo').text(`Your total is $${totalPrice}`);
+            $("#totalModal").modal("toggle");
+    
+        }
+    
     }
 
 
@@ -84,24 +104,48 @@ const render = function (outputElement, data) {
 
         input = $('#quantity').val();
 
-        if (input < data.stock_quantity) {
-
-            $('#stuff').html(`Thank you for purchasing the ${data.product_name}`);
+        if(!input){
+            $('#purchaseInfo').text('Please enter quantity!');
+            $("#purchaseModal").modal("toggle");
         }
 
         else {
-            $('#stuff').html('Sorry! Stock Unavailable.').css({ "color": "red", "font-size": "100%" });
+
+
+        if (input <= data.stock_quantity) {
+
+            $('#purchaseInfo').text(`Thank you for purchasing the ${data.product_name}`);
+            $("#purchaseModal").modal("toggle");
+        }
+
+        else {
+            $('#purchaseInfo').text(`Sorry! We currently only have ${data.stock_quantity} ${data.product_name} available.`);
+            //.css({ "color": "red", "font-size": "100%" });
+            $("#purchaseModal").modal("toggle");
+        }
+
         }
 
     }
 
+    const renderHome = function () {
+        $('.container1').show();
+        $('#product').show();
+        $('#submit').show();
+        $('.home').hide();
+    
+    }
+
+     $('#purchaseInfo').empty();
     //clicking the total and purchase item buttons
+    $('.home').on('click', renderHome);
     $('.total').on('click', total);
     $('.purchase').on('click', purchaseItem);
 
+  
 }
 
-
+$('#productInfo').empty();
 
 //function to render/print the data from the database to our html page
 const renderProducts = function (dataList) {

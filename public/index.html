@@ -18,38 +18,62 @@
         <div class="jumbotron text-center">
             <h1> Welcome to Bamazon <i class="fa fa-shopping-cart" aria-hidden="true"></i></h1>
             <hr>
-            <div class="container">
+            <div class="container1">
                 <h3> Select a Product: </h3>
             </div>
             <br>
             <div class="form-group">
 
                 <select class="custom-select" id="product">
-                    <option selected>Choose...</option>
+                    <!-- <option selected>Choose...</option> -->
                 </select> <br> <br>
-                <button class="btn btn-primary" id="submit"> Choose </button>
+                <button class="btn btn-success" id="submit"> Click to view info </button>
             </div>
 
-
-            <div class="card">
-                <div class="card-header">
-                    <h3> Product Information: </h3>
-                </div>
-                <div class="card-body">
-                    <ul id="productInfo" class="list-group"></ul>
-
-                </div>
-
-                <div class="card-body" id="stuff">
-
-                </div>
-
+        
+            <div id="productInfo">
+          
             </div>
-
 
         </div>
 
 
+    </div>
+
+
+    <div class="modal fade" id="totalModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Total</h2>
+                </div>
+                <div class="modal-body">
+                    <h3 id="totalInfo"></h3>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="purchaseModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Checkout</h2>
+                </div>
+                <div class="modal-body">
+                    <h3 id="purchaseInfo"></h3>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 
