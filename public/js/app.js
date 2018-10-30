@@ -4,7 +4,7 @@ const runProductQuery = function () {
 
     $.ajax({ url: '/api/products/', method: 'GET' }).then(function (productList) {
 
-        renderProducts(productList);
+        renderProductName(productList);
 
 
     })
@@ -19,7 +19,7 @@ const findOneProduct = function () {
     $.ajax({ url: `/api/products/${id}`, method: 'GET' }).then(function (data) {
 
 
-        render('#productInfo', data);
+        renderProductInfo('#productInfo', data);
 
 
     });
@@ -28,7 +28,7 @@ const findOneProduct = function () {
 
 
 //function to render information about the products from the database
-const render = function (outputElement, data) {
+const renderProductInfo = function (outputElement, data) {
 
     $('.container1').hide();
     $('#product').hide();
@@ -72,9 +72,7 @@ const render = function (outputElement, data) {
     );
 
     divBody.append(listItems, inputDiv, buttonDiv);
-
     output.append(home, divHeader, divBody);
-
 
 
     //function to calculate total price for the user
@@ -95,7 +93,6 @@ const render = function (outputElement, data) {
             $("#totalModal").modal("toggle");
 
         }
-
     }
 
 
@@ -110,7 +107,6 @@ const render = function (outputElement, data) {
         }
 
         else {
-
 
             if (input <= data.stock_quantity) {
 
@@ -151,6 +147,10 @@ const render = function (outputElement, data) {
                 
             }
 
+            else if(data.stock_quantity === 0) {
+                $('#purchaseInfo').text('Currently out of stock. Sorry for the inconvenience');
+                $("#purchaseModal").modal("toggle");
+            }
             else {
                 $('#purchaseInfo').text(`Sorry! We currently only have ${data.stock_quantity} ${data.product_name} available.`);
                 $("#purchaseModal").modal("toggle");
@@ -166,7 +166,6 @@ const render = function (outputElement, data) {
         $('#product').show();
         $('#submit').show();
         $('.home').hide();
-
     }
 
     $('#purchaseInfo').empty();
@@ -181,17 +180,14 @@ const render = function (outputElement, data) {
 $('#productInfo').empty();
 
 //function to render/print the data from the database to our html page
-const renderProducts = function (dataList) {
-
+const renderProductName = function (dataList) {
 
     let rowsToAdd = [];
     for (let i = 0; i < dataList.length; i++) {
         rowsToAdd.push(createProductRow(dataList[i]));
     }
 
-
     $('#product').append(rowsToAdd);
-
     $('#submit').on('click', findOneProduct);
 
 }
@@ -202,7 +198,6 @@ const createProductRow = function (product) {
     listOption.attr('value', product.id);
     listOption.text(product.product_name);
     return listOption;
-
 }
 
 runProductQuery();

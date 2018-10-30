@@ -14,6 +14,7 @@
 
 <body>
 
+    <!-- Main Container-->
     <div class="container">
         <div class="jumbotron text-center">
             <h1> Welcome to Bamazon <i class="fa fa-shopping-cart" aria-hidden="true"></i></h1>
@@ -30,17 +31,15 @@
                 <button class="btn btn-success" id="submit"> Click to view info </button>
             </div>
 
-        
+
             <div id="productInfo">
-          
             </div>
 
         </div>
 
-
     </div>
 
-
+    <!-- Totals Modal-->
     <div class="modal fade" id="totalModal" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -49,7 +48,7 @@
                 </div>
                 <div class="modal-body">
                     <h3 id="totalInfo"></h3>
-                    
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -58,7 +57,7 @@
         </div>
     </div>
 
-
+    <!--Purchase Modal-->
     <div class="modal fade" id="purchaseModal" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -67,7 +66,7 @@
                 </div>
                 <div class="modal-body">
                     <h3 id="purchaseInfo"></h3>
-                    
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -76,13 +75,14 @@
         </div>
     </div>
 
-
+    <!-- Footer-->
     <footer class="footer">
         <div class="container">
             <a href="/api/products"> API Products Link</a>
         </div>
     </footer>
 
+    <!-- Scripts-->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
